@@ -1,0 +1,33 @@
+name: Go
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: [ '1.16','1.15','1.14', '1.13', '1.12', '1.11' ]
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{ matrix.go }}
+
+    - name: install golint
+      run: go get golang.org/x/lint/golint
+
+    - name: go vet
+      run: go vet $(go list ./... | grep -v /examples/)
+
+    - name: run golint
+      run: golint --set_exit_status ./...
+
+    - name: Run coverage
+      run: go test -race -coverprofile=coverage.txt -covermode=atomic
+
+    - name: Upload coverage to Codecov
+      if: github.ref == 'refs/heads/master'
+      run: bash <(curl -s https://codecov.io/bash)
