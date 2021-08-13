@@ -5,8 +5,7 @@
 [![GoDoc](http://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](http://godoc.org/github.com/BackAged/instabot)
 [![Go Report Card](https://goreportcard.com/badge/github.com/BackAged/instabot)](https://goreportcard.com/report/github.com/BackAged/instabot)
 
-[![Run on Repl.it](https://repl.it/badge/github.com/BackAged/instabot)](https://repl.it/github.com/BackAged/instabot)
-
+[![Run on Repl.it](https://repl.it/badge/github/BackAged/instabot)](https://repl.it/github/BackAged/instabot)
 
 ## Introduction
 Instagram Messaging API GO SDK makes it easy to work with instagram messaging API.
