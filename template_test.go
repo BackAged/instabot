@@ -118,7 +118,7 @@ func TestNewGenericTemplateElement(t *testing.T) {
 				args: args{
 					title: "title",
 					options: []GenericTemplateElementOption{
-						WitTemplateButtons(buttons),
+						WithTemplateButtons(buttons),
 					},
 				},
 				afterEach: func(gte *GenericTemplateElement) {
@@ -158,7 +158,7 @@ func TestGenericTemplateElementJSON(t *testing.T) {
 				WithTemplateImageURL("https://petersfancybrownhats.com/company_image.png"),
 				WithTemplateSubtitle("We have the right hat for everyone."),
 				WithTemplateDefaultAction("https://petersfancybrownhats.com/view?item=103"),
-				WitTemplateButtons(
+				WithTemplateButtons(
 					[]Button{
 						NewURLButton("View Website", "https://petersfancybrownhats.com"),
 						NewPostBackButton("Start Chatting", "DEVELOPER_DEFINED_PAYLOAD"),

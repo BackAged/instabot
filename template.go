@@ -70,7 +70,7 @@ func WithTemplateImageURL(imageURL string) GenericTemplateElementOption {
 	}
 }
 
-// WithTemplateDefaultAction sets default action a GenericTemplateElement.
+// WithTemplateDefaultAction sets default action of a GenericTemplateElement.
 func WithTemplateDefaultAction(URL string) GenericTemplateElementOption {
 	return func(gte *GenericTemplateElement) {
 		gte.DefaultAction = &TemplateDefaultAction{
@@ -80,9 +80,9 @@ func WithTemplateDefaultAction(URL string) GenericTemplateElementOption {
 	}
 }
 
-// WitButton sets buttons a GenericTemplateElement,
+// WithTemplateButtons sets buttons of a GenericTemplateElement,
 // a maximum of 3 buttons per element is supported.
-func WitTemplateButtons(buttons []Button) GenericTemplateElementOption {
+func WithTemplateButtons(buttons []Button) GenericTemplateElementOption {
 	return func(gte *GenericTemplateElement) {
 		gte.Buttons = buttons
 	}
