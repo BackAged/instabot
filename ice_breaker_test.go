@@ -17,8 +17,8 @@ func TestIceBreakerJSON(t *testing.T) {
 			name: "ice breaker",
 			args: NewIceBreaker("test", "test"),
 			want: `{
-				"question":"test",
-				"payload":"test"
+				"question": "test",
+				"payload": "test"
 			}`,
 		},
 	}
