@@ -9,4 +9,96 @@
 [![Run on Repl.it](https://repl.it/badge/github/BackAged/instabot)](https://repl.it/github/BackAged/instabot)
 
 ## Introduction
-Instagram Messaging API GO SDK makes it easy to work with instagram messaging API.
+Instabot, Instagram Messaging API GO SDK makes it easy to work with instagram messaging API.
+It uses Instagram messaging API latest version - `v11.0`
+
+## Requirements
+
+Instabot requires Go 1.13 or later.
+
+## Installation ##
+
+```sh
+$ go get -u github.com/BackAged/instabot
+```
+
+## Instabot configuration
+
+```go
+import (
+	"context"
+	"fmt"
+	"log"
+
+	"github.com/BackAged/instabot"
+)
+
+func main() {
+    // instantiating instabot.
+	bot, err := instabot.New("your_instagram_business_account_page_access_token")
+    ...
+
+    // instantiating with http.Client
+    bot, err := instabot.New(
+        "your_instagram_business_account_page_access_token",
+        instabot.WithHTTPClient(yourHttpClient)
+    )
+    ...
+
+    // instantiating with mock api server
+    bot, err := instabot.New(
+        "your_instagram_business_account_page_access_token",
+        instabot.APIEndpointBase("http://your_mock_api_server.com")
+    )
+    ...
+
+}
+```
+
+## Example
+
+```go
+import (
+	"context"
+	"fmt"
+	"log"
+
+	"github.com/BackAged/instabot"
+)
+
+func main() {
+    // See examples directory for more example.
+    
+    // instantiating instabot.
+	bot, err := instabot.New("your_instagram_business_account_page_access_token")
+    ...
+
+    
+    // Send text message.
+	_, err = bot.SendMessage(
+		context.Background(),
+		"instagram_user_id_you_want_to_send_message_to",
+		instabot.NewTextMessage("hello"),
+	)
+    ...
+
+    // Set icebreakers
+    _, err = bot.SetIceBreakers(
+		context.Background(),
+		[]*instabot.IceBreaker{
+			instabot.NewIceBreaker("frequently asked question 1", "user payload"),
+			instabot.NewIceBreaker("frequently asked question 2", "user payload"),
+			instabot.NewIceBreaker("frequently asked question 3", "user payload"),
+			instabot.NewIceBreaker("frequently asked question 4", "user payload"),
+		},
+	)
+    ...
+
+    // Get user profile.
+	profile, err := bot.GetUserProfile(
+		context.Background(),
+		"instagram_user_id_you_want_to_get_profile",
+	)
+    ...
+}
+```
