@@ -4,6 +4,11 @@ import (
 	"encoding/json"
 )
 
+// Button defines button type.
+type Button interface {
+	Type() ButtonType
+}
+
 // ButtonType defines button type.
 type ButtonType string
 
@@ -17,11 +22,6 @@ const (
 	ButtonTypeLogOut   ButtonType = ButtonType("account_unlink")
 	ButtonTypeGamePlay ButtonType = ButtonType("game_play")
 )
-
-// Button defines button type.
-type Button interface {
-	Type() ButtonType
-}
 
 // URLButton defines URL button.
 // https://developers.facebook.com/docs/messenger-platform/send-messages/buttons#url
