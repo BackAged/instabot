@@ -21,6 +21,7 @@ func encodeSetIceBreakersJSON(w io.Writer, iceBreakers []*IceBreaker) error {
 }
 
 // SetIceBreakers sets a instagram account ice breakers.
+// https://developers.facebook.com/docs/messenger-platform/instagram/features/ice-breakers#setting-ice-breakers
 func (c *Client) SetIceBreakers(ctx context.Context, iceBreakers []*IceBreaker) (*SetIceBreakersResponse, error) {
 	var buf bytes.Buffer
 	if err := encodeSetIceBreakersJSON(&buf, iceBreakers); err != nil {
@@ -38,6 +39,7 @@ func (c *Client) SetIceBreakers(ctx context.Context, iceBreakers []*IceBreaker) 
 }
 
 // GetIceBreakers fetches ice breakers.
+// https://developers.facebook.com/docs/messenger-platform/instagram/features/ice-breakers#getting-ice-breakers
 func (c *Client) GetIceBreakers(ctx context.Context) (*GetIceBreakersResponse, error) {
 	query := url.Values{}
 	query.Add("fields", "ice_breakers")
@@ -64,6 +66,7 @@ func encodeDeletetIceBreakersJSON(w io.Writer) error {
 }
 
 // DeleteIceBreakers deletes ice breakers.
+// https://developers.facebook.com/docs/messenger-platform/instagram/features/ice-breakers#deleting-icebreakers
 func (c *Client) DeleteIceBreakers(ctx context.Context) (*DeleteIceBreakersResponse, error) {
 	var buf bytes.Buffer
 	if err := encodeDeletetIceBreakersJSON(&buf); err != nil {
