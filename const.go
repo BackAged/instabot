@@ -13,4 +13,7 @@ var (
 	APIEndpointBase             = "https://graph.facebook.com"
 	APIEndpointSendMessage      = fmt.Sprintf("/%s/me/messages", APIVersion)
 	APIEndpointMessengerProfile = fmt.Sprintf("/%s/me/messenger_profile", APIVersion)
+	GetAPIEndpointUserProfile   = func(instagramUserID string) string {
+		return fmt.Sprintf("/%s/%s", APIVersion, instagramUserID)
+	}
 )
