@@ -222,3 +222,77 @@ func (m *Messaging) GetMessageReactionEvent() *MessageReactionEvent {
 		Reaction:  m.Reaction,
 	}
 }
+
+// MessageSeenEvent defines message seen event.
+type MessageSeenEvent struct {
+	Sender    *Sender
+	Recipient *Recipient
+	Timestamp time.Time
+	SeenMID   string
+}
+
+// GetMessageSeenEvent returns message seen event.
+// Call this only when the event type is WebhookEventTypeMessageSeen.
+func (m *Messaging) GetMessageSeenEvent() *MessageSeenEvent {
+	messageSeenEvent := &MessageSeenEvent{
+		Sender:    m.Sender,
+		Recipient: m.Recipient,
+		Timestamp: time.Unix(m.Timestamp, 0).UTC(),
+	}
+
+	if m.Read != nil {
+		messageSeenEvent.SeenMID = m.Read.MID
+	}
+
+	return messageSeenEvent
+}
+
+// MessageShareEvent defines message share events.
+type MessageShareEvent struct {
+	Sender           *Sender
+	Recipient        *Recipient
+	Timestamp        time.Time
+	SharedPayloadURL string
+}
+
+// GetMessageShareEvent returns message share event.
+// Call this only when the event type is WebhookEventTypeShare.
+func (m *Messaging) GetMessageShareEvent() *MessageShareEvent {
+	messageShareEvent := &MessageShareEvent{
+		Sender:    m.Sender,
+		Recipient: m.Recipient,
+		Timestamp: time.Unix(m.Timestamp, 0).UTC(),
+	}
+
+	if m.Message != nil {
+		if len(m.Message.Attachments) > 0 {
+			messageShareEvent.SharedPayloadURL = m.Message.Attachments[0].Payload.URL
+		}
+	}
+
+	return messageShareEvent
+}
+
+// MessageDeleteEvent defines message delete events.
+type MessageDeleteEvent struct {
+	Sender     *Sender
+	Recipient  *Recipient
+	Timestamp  time.Time
+	DeletedMID string
+}
+
+// GetMessageDeleteEvent returns message delete event.
+// Call this only when the event type is WebhookEventTypeDeleted.
+func (m *Messaging) GetMessageDeleteEvent() *MessageDeleteEvent {
+	messageDeletevent := &MessageDeleteEvent{
+		Sender:    m.Sender,
+		Recipient: m.Recipient,
+		Timestamp: time.Unix(m.Timestamp, 0).UTC(),
+	}
+
+	if m.Message != nil {
+		messageDeletevent.DeletedMID = m.Message.MID
+	}
+
+	return messageDeletevent
+}

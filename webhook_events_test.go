@@ -655,3 +655,195 @@ func TestGetMessageReactionEvent(t *testing.T) {
 		})
 	}
 }
+
+func TestGetMessageSeenEvent(t *testing.T) {
+	testCases := []struct {
+		name      string
+		args      string
+		want      *MessageSeenEvent
+		afterEach func(t *testing.T, event *WebhookEvent)
+	}{
+		{
+			name: "message seen event",
+			args: `{
+				"object": "instagram",
+				"entry": [
+				  {
+					"id": "<IGID>",
+					"time": 1569262486134,
+					"messaging": [
+					  {
+						"sender": {
+						  "id": "<IGSID>"
+						},
+						"recipient": {
+						  "id": "<IGID>"
+						},
+						"timestamp": 1569262485349,
+						"read":{
+							"mid":"<LAST_MESSAGE_ID_READ>"
+						}
+					  }
+					]
+				  }
+				]
+			}`,
+			want: &MessageSeenEvent{
+				Sender: &Sender{
+					ID: "<IGSID>",
+				},
+				Recipient: &Recipient{
+					ID: "<IGID>",
+				},
+				Timestamp: time.Unix(1569262485349, 0).UTC(),
+				SeenMID:   "<LAST_MESSAGE_ID_READ>",
+			},
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			e := new(WebhookEvent)
+			err := json.Unmarshal([]byte(tc.args), e)
+			assert.NoError(t, err)
+
+			assert.Equal(t, WebhookEventTypeMessageSeen, e.Entries[0].Messaging[0].Type)
+			assert.Equal(t, tc.want, e.Entries[0].Messaging[0].GetMessageSeenEvent())
+
+			if tc.afterEach != nil {
+				tc.afterEach(t, e)
+			}
+		})
+	}
+}
+
+func TestGetMessageShareEvent(t *testing.T) {
+	testCases := []struct {
+		name      string
+		args      string
+		want      *MessageShareEvent
+		afterEach func(t *testing.T, event *WebhookEvent)
+	}{
+		{
+			name: "message share event",
+			args: `{
+				"object": "instagram",
+				"entry": [
+				  {
+					"id": "<IGID>",
+					"time": 1569262486134,
+					"messaging": [
+					  {
+						"sender": {
+						  "id": "<IGSID>"
+						},
+						"recipient": {
+						  "id": "<IGID>"
+						},
+						"timestamp":1569262485349,
+						"message":{
+							"mid":"<MESSAGE_ID>",
+							"attachments":[
+							   {
+								  "type":"share",
+								  "payload":{
+									 "url":"<CDN_URL>"
+								  }
+							   }
+							]
+						}
+					  }
+					]
+				  }
+				]
+			}`,
+			want: &MessageShareEvent{
+				Sender: &Sender{
+					ID: "<IGSID>",
+				},
+				Recipient: &Recipient{
+					ID: "<IGID>",
+				},
+				Timestamp:        time.Unix(1569262485349, 0).UTC(),
+				SharedPayloadURL: "<CDN_URL>",
+			},
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			e := new(WebhookEvent)
+			err := json.Unmarshal([]byte(tc.args), e)
+			assert.NoError(t, err)
+
+			assert.Equal(t, WebhookEventTypeShare, e.Entries[0].Messaging[0].Type)
+			assert.Equal(t, tc.want, e.Entries[0].Messaging[0].GetMessageShareEvent())
+
+			if tc.afterEach != nil {
+				tc.afterEach(t, e)
+			}
+		})
+	}
+}
+
+func TestGetMessageDeleteEvent(t *testing.T) {
+	testCases := []struct {
+		name      string
+		args      string
+		want      *MessageDeleteEvent
+		afterEach func(t *testing.T, event *WebhookEvent)
+	}{
+		{
+			name: "message delete event",
+			args: `{
+				"object": "instagram",
+				"entry": [
+				  {
+					"id": "<IGID>",
+					"time": 1569262486134,
+					"messaging": [
+					  {
+						"sender": {
+						  "id": "<IGSID>"
+						},
+						"recipient": {
+						  "id": "<IGID>"
+						},
+						"timestamp": 1569262485349,
+						"message": {
+							"mid":"<MESSAGE_ID>",
+							"is_deleted": true
+						}
+					  }
+					]
+				  }
+				]
+			}`,
+			want: &MessageDeleteEvent{
+				Sender: &Sender{
+					ID: "<IGSID>",
+				},
+				Recipient: &Recipient{
+					ID: "<IGID>",
+				},
+				Timestamp:  time.Unix(1569262485349, 0).UTC(),
+				DeletedMID: "<MESSAGE_ID>",
+			},
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			e := new(WebhookEvent)
+			err := json.Unmarshal([]byte(tc.args), e)
+			assert.NoError(t, err)
+
+			assert.Equal(t, WebhookEventTypeDeleted, e.Entries[0].Messaging[0].Type)
+			assert.Equal(t, tc.want, e.Entries[0].Messaging[0].GetMessageDeleteEvent())
+
+			if tc.afterEach != nil {
+				tc.afterEach(t, e)
+			}
+		})
+	}
+}
