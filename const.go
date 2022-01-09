@@ -5,7 +5,7 @@ import "fmt"
 // instabot const values.
 const (
 	Platform   string = "instagram"
-	APIVersion string = "v11.0"
+	APIVersion string = "v12.0"
 )
 
 // instagram messaging api endpoints.
