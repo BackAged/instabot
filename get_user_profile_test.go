@@ -41,6 +41,7 @@ func TestGetUserProfile(t *testing.T) {
 			}
 
 			q := url.Values{}
+			q.Add("fields", "name,profile_pic,is_verified_user,follower_count,is_user_follow_business,is_business_follow_user")
 			q.Add("access_token", pageAccessToken)
 
 			fields := fields{
@@ -48,15 +49,23 @@ func TestGetUserProfile(t *testing.T) {
 				returnResponse: fmt.Sprintf(`{
 					"name": "Shahin Mahmud",
 					"profile_pic": "https://scontent.fdac14-1.fna.fbcdn.net/v/t51.2885-15/s.jpg",
-					"id": "4576841382327552"
+					"id": "4576841382327552",
+					"is_verified_user": true,
+					"follower_count": 20,
+					"is_user_follow_business": true,
+					"is_business_follow_user": true
 				  }`),
 				returnResponseCode: 200,
 			}
 
 			want := &GetUserProfileResponse{
-				Name:       "Shahin Mahmud",
-				ProfilePic: "https://scontent.fdac14-1.fna.fbcdn.net/v/t51.2885-15/s.jpg",
-				ID:         "4576841382327552",
+				Name:                    "Shahin Mahmud",
+				ProfilePic:              "https://scontent.fdac14-1.fna.fbcdn.net/v/t51.2885-15/s.jpg",
+				ID:                      "4576841382327552",
+				IsVerifiedUser:          true,
+				FollowerCount:           20,
+				IsUserFollowingBusiness: true,
+				IsBusinessFollowingUser: true,
 			}
 
 			return test{
@@ -73,6 +82,7 @@ func TestGetUserProfile(t *testing.T) {
 			}
 
 			q := url.Values{}
+			q.Add("fields", "name,profile_pic,is_verified_user,follower_count,is_user_follow_business,is_business_follow_user")
 			q.Add("access_token", pageAccessToken)
 
 			fields := fields{
