@@ -5,3 +5,8 @@ package instabot
 type Recipient struct {
 	ID string `json:"id"`
 }
+
+// PrivateReplyRecipient recipients defines recipient for private replies.
+type PrivateReplyRecipient struct {
+	CommentID string `json:"comment_id"`
+}
