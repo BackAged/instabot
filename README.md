@@ -19,7 +19,7 @@ Instabot requires Go 1.13 or later.
 ## Installation ##
 
 ```sh
-$ go get -u github.com/BackAged/instabot
+$ go get -u github.com/mohammadVatandoost/instabot
 ```
 
 ## Instabot configuration
@@ -30,7 +30,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/BackAged/instabot"
+	"github.com/mohammadVatandoost/instabot"
 )
 
 func main() {
@@ -63,7 +63,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/BackAged/instabot"
+	"github.com/mohammadVatandoost/instabot"
 )
 
 func main() {

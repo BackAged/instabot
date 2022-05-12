@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"log"
 
-	"github.com/BackAged/instabot"
+	"github.com/mohammadVatandoost/instabot"
 )
 
 func main() {

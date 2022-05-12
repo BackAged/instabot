@@ -1,4 +1,4 @@
-module github.com/BackAged/instabot
+module github.com/mohammadVatandoost/instabot
 
 go 1.16
 

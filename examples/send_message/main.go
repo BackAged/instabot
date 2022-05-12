@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/BackAged/instabot"
+	"github.com/mohammadVatandoost/instabot"
 )
 
 func main() {
